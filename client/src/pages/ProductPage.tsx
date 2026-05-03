@@ -23,7 +23,7 @@ const catalogue: ProductDetailData[] = [
     composition: "62% Wool, 38% Silk. Lining: 100% Silk.",
     origin: "Woven in Biella, Italy. Finished by hand in our Florence atelier.",
     care: "Dry clean only. Store on a wide-shoulder hanger. Steam to refresh.",
-    extraImages: [p2, p3],
+    extraImages: [p2],
   },
   {
     id: "spiga-blazer",
@@ -37,7 +37,7 @@ const catalogue: ProductDetailData[] = [
     composition: "90% Wool, 10% Cashmere. Lining: 100% Silk.",
     origin: "Milled in Prato, Italy. Hand-tailored in Milan.",
     care: "Dry clean only. Press on reverse with damp cloth under steam.",
-    extraImages: [p3, p4],
+    extraImages: [p3],
   },
   {
     id: "pleated-trouser",
@@ -51,7 +51,7 @@ const catalogue: ProductDetailData[] = [
     composition: "100% Wool Gabardine.",
     origin: "Fabric woven in Biella. Cut and sewn in Florence.",
     care: "Dry clean preferred. Hand wash cold with gentle detergent.",
-    extraImages: [p4, p5],
+    extraImages: [p4],
   },
   {
     id: "cashmere-veil",
@@ -65,7 +65,7 @@ const catalogue: ProductDetailData[] = [
     composition: "100% Grade-A Mongolian Cashmere, 2-ply.",
     origin: "Knitted in Scotland. Finished and inspected in Paris.",
     care: "Hand wash in cold water. Dry flat on a white towel in shade.",
-    extraImages: [p5, p6],
+    extraImages: [p5],
   },
   {
     id: "slip-dress-onyx",
@@ -79,7 +79,7 @@ const catalogue: ProductDetailData[] = [
     composition: "100% Mulberry Silk Charmeuse, 30 momme.",
     origin: "Fabric woven in Como, Italy. Sewn by hand in our Milan studio.",
     care: "Dry clean only. Iron on lowest silk setting, inside out.",
-    extraImages: [p6, p1],
+    extraImages: [p6],
   },
   {
     id: "architect-trench",
@@ -93,7 +93,7 @@ const catalogue: ProductDetailData[] = [
     composition: "73% Cotton, 27% Polyester Gabardine. Lining: 100% Viscose.",
     origin: "Fabric woven in Manchester, UK. Finished in Florence, Italy.",
     care: "Machine wash cold on delicate cycle. Hang to dry immediately.",
-    extraImages: [p1, p2],
+    extraImages: [p1],
   },
 ];
 

@@ -221,7 +221,7 @@ export function ProductDetail({ product, onBack }: Props) {
               {/* Price */}
               <motion.div
                 variants={itemVariants}
-                className="py-7 font-serif text-2xl text-foreground tabular-nums"
+                className="py-7 font-sans font-light tracking-wide text-2xl text-foreground tabular-nums"
               >
                 {product.price}
               </motion.div>
@@ -465,17 +465,6 @@ const REVIEWS = [
     body: "The coat is breathtaking in person. The only reason I did not give five stars is the delivery took slightly longer than estimated. But the garment itself? Flawless. The ivory is warmer than on screen — which I actually prefer.",
     verified: true,
     size: "XS · Fits slightly large",
-  },
-  {
-    id: 4,
-    author: "Celeste A.",
-    location: "Milan, Italy",
-    rating: 5,
-    date: "January 2025",
-    title: "A garment to pass down.",
-    body: "I bought this for a very specific occasion and it elevated the entire room. People asked. The quality reads at a distance — not just in hand. I have already ordered the Slip Dress.",
-    verified: false,
-    size: "S · Fits true to size",
   },
 ];
 
