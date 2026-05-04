@@ -11,7 +11,17 @@ const links = [
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -108,14 +118,67 @@ export function Navbar() {
             <span className="text-[10px] tabular-nums hidden md:inline">0</span>
           </Link>
           
-          <a
-            href="#products"
-            className="md:hidden text-[11px] tracking-luxe-tight uppercase"
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="md:hidden text-foreground hover:opacity-70 transition-opacity flex items-center"
+            aria-label="Menu"
           >
-            Shop
-          </a>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="4" y1="8" x2="20" y2="8"></line>
+              <line x1="4" y1="16" x2="20" y2="16"></line>
+            </svg>
+          </button>
         </div>
       </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 z-[60] bg-background flex flex-col px-6 py-5 md:hidden"
+          >
+            <div className="flex items-center justify-between">
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-[13px] tracking-luxe font-medium uppercase"
+              >
+                C A E L R I C
+              </Link>
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="text-foreground hover:opacity-70 transition-opacity"
+                aria-label="Close menu"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+            <div className="flex-1 flex flex-col items-center justify-center gap-12">
+              {links.map((l) => (
+                <motion.a
+                  key={l.label}
+                  href={l.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-3xl font-serif text-foreground uppercase tracking-widest"
+                >
+                  {l.label}
+                </motion.a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

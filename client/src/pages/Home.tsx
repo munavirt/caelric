@@ -15,7 +15,7 @@ export default function Home() {
       <Navbar />
 
       {/* Opening title overlay */}
-      <section className="relative h-screen w-full flex items-end justify-between px-6 md:px-12 pb-12 md:pb-16 bg-background">
+      <section className="relative h-[100dvh] w-full flex items-end justify-between px-6 md:px-12 pb-12 md:pb-16 bg-background">
         <div>
           <div className="text-[10px] tracking-luxe uppercase text-muted-foreground mb-4">
             FW · MMXXV

@@ -180,7 +180,7 @@ export const ScrollSequenceCanvas = forwardRef<HTMLDivElement, {
       className="relative w-full h-[500vh] bg-background"
       id="story"
     >
-      <div className="sticky top-0 left-0 w-screen h-screen overflow-hidden">
+      <div className="sticky top-0 left-0 w-full h-[100dvh] overflow-hidden">
         <video
           ref={videoRef}
           src={VIDEO_SRC}
