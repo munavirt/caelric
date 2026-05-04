@@ -15,13 +15,13 @@ export function Navbar() {
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (mobileMenuOpen) {
+    if (mobileMenuOpen || searchOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, searchOpen]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -37,14 +37,15 @@ export function Navbar() {
   }, [searchOpen]);
 
   return (
-    <header
-      className={
-        "fixed inset-x-0 top-0 z-50 transition-[backdrop-filter,background-color,border-color] duration-500 " +
-        (scrolled
-          ? "backdrop-blur-md bg-background/70 border-b border-border/60"
-          : "bg-transparent border-b border-transparent")
-      }
-    >
+    <>
+      <header
+        className={
+          "fixed inset-x-0 top-0 z-50 transition-[backdrop-filter,background-color,border-color] duration-500 " +
+          (scrolled
+            ? "backdrop-blur-md bg-background/70 border-b border-border/60"
+            : "bg-transparent border-b border-transparent")
+        }
+      >
       <nav className="mx-auto flex max-w-[1600px] items-center justify-between px-6 md:px-12 py-5 relative">
         <div className="flex-1">
           <Link
@@ -72,32 +73,8 @@ export function Navbar() {
         <div className="flex-1 flex justify-end items-center gap-5 md:gap-8">
           {/* Search */}
           <div className="relative flex items-center justify-end">
-            <AnimatePresence>
-              {searchOpen && (
-                <motion.form
-                  initial={{ width: 0, opacity: 0 }}
-                  animate={{ width: "200px", opacity: 1 }}
-                  exit={{ width: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: [0.7, 0, 0.2, 1] }}
-                  className="absolute right-8 mr-2 overflow-hidden flex items-center"
-                  onSubmit={(e) => { e.preventDefault(); /* handle search */ }}
-                >
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    placeholder="SEARCH"
-                    className="w-full bg-transparent border-b border-foreground/30 pb-1 text-[11px] tracking-luxe-tight uppercase text-foreground focus:outline-none focus:border-foreground transition-colors placeholder:text-foreground/40"
-                    onBlur={() => {
-                      if (!searchInputRef.current?.value) {
-                        setSearchOpen(false);
-                      }
-                    }}
-                  />
-                </motion.form>
-              )}
-            </AnimatePresence>
             <button
-              onClick={() => setSearchOpen(!searchOpen)}
+              onClick={() => setSearchOpen(true)}
               className="text-foreground hover:opacity-70 transition-opacity"
               aria-label="Search"
             >
@@ -130,6 +107,8 @@ export function Navbar() {
           </button>
         </div>
       </nav>
+
+      </header>
 
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
@@ -179,6 +158,51 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+
+      {/* Search Overlay */}
+      <AnimatePresence>
+        {searchOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4 }}
+            className="fixed inset-0 z-[60] bg-background/95 backdrop-blur-md flex flex-col items-center justify-center px-6 md:px-12"
+          >
+            <button
+              onClick={() => setSearchOpen(false)}
+              className="absolute top-5 right-6 md:right-12 text-foreground hover:opacity-70 transition-opacity p-2 -mr-2"
+              aria-label="Close search"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+            <motion.form
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.5, delay: 0.1, ease: [0.7, 0, 0.2, 1] }}
+              className="w-full max-w-3xl relative"
+              onSubmit={(e) => { e.preventDefault(); setSearchOpen(false); }}
+            >
+              <input
+                ref={searchInputRef}
+                type="text"
+                placeholder="Search the collection..."
+                className="w-full bg-transparent border-b border-foreground/30 pb-4 text-2xl md:text-5xl font-serif font-light text-foreground focus:outline-none focus:border-foreground transition-colors placeholder:text-foreground/30"
+              />
+              <button
+                type="submit"
+                className="absolute right-0 bottom-6 text-[10px] tracking-luxe uppercase text-foreground hover:opacity-70 transition-opacity hidden md:block"
+              >
+                Enter
+              </button>
+            </motion.form>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
